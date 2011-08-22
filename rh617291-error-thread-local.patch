@@ -1,0 +1,14 @@
+diff -up libnl-1.1/lib/utils.c.foo libnl-1.1/lib/utils.c
+--- libnl-1.1/lib/utils.c.foo	2010-08-04 10:26:11.159459942 -0500
++++ libnl-1.1/lib/utils.c	2010-08-04 10:26:27.520427398 -0500
+@@ -46,8 +46,8 @@ static void __init nl_debug_init(void)
+  * @{
+  */
+ 
+-static char *errbuf;
+-static int nlerrno;
++static __thread char *errbuf;
++static __thread int nlerrno;
+ 
+ /** @cond SKIP */
+ int __nl_error(int err, const char *file, unsigned int line, const char *func,
