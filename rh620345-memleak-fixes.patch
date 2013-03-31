@@ -1,0 +1,193 @@
+From rkhadgar@redhat.com, based on upstream
+
+https://bugzilla.redhat.com/show_bug.cgi?id=620345
+
+diff -Naurp libnl-1.1/lib/route/class.c libnl-1.1.orig/lib/route/class.c
+--- libnl-1.1/lib/route/class.c	2008-01-14 21:18:45.000000000 +0530
++++ libnl-1.1.orig/lib/route/class.c	2010-08-02 14:49:15.626205384 +0530
+@@ -156,10 +156,10 @@ int rtnl_class_add(struct nl_handle *han
+ 		return nl_errno(ENOMEM);
+ 
+ 	err = nl_send_auto_complete(handle, msg);
++	nlmsg_free(msg);
+ 	if (err < 0)
+ 		return err;
+ 
+-	nlmsg_free(msg);
+ 	return nl_wait_for_ack(handle);
+ }
+ 
+diff -Naurp libnl-1.1/lib/route/classifier.c libnl-1.1.orig/lib/route/classifier.c
+--- libnl-1.1/lib/route/classifier.c	2008-01-14 21:18:45.000000000 +0530
++++ libnl-1.1.orig/lib/route/classifier.c	2010-08-02 14:50:37.862206361 +0530
+@@ -169,10 +169,10 @@ int rtnl_cls_add(struct nl_handle *handl
+ 		return nl_errno(ENOMEM);
+ 	
+ 	err = nl_send_auto_complete(handle, msg);
++	nlmsg_free(msg);
+ 	if (err < 0)
+ 		return err;
+ 
+-	nlmsg_free(msg);
+ 	return nl_wait_for_ack(handle);
+ }
+ 
+@@ -216,10 +216,10 @@ int rtnl_cls_change(struct nl_handle *ha
+ 		return nl_errno(ENOMEM);
+ 	
+ 	err = nl_send_auto_complete(handle, msg);
++	nlmsg_free(msg);
+ 	if (err < 0)
+ 		return err;
+ 
+-	nlmsg_free(msg);
+ 	return nl_wait_for_ack(handle);
+ }
+ 
+@@ -263,10 +263,10 @@ int rtnl_cls_delete(struct nl_handle *ha
+ 		return nl_errno(ENOMEM);
+ 	
+ 	err = nl_send_auto_complete(handle, msg);
++	nlmsg_free(msg);
+ 	if (err < 0)
+ 		return err;
+ 
+-	nlmsg_free(msg);
+ 	return nl_wait_for_ack(handle);
+ }
+ 
+diff -Naurp libnl-1.1/lib/route/link.c libnl-1.1.orig/lib/route/link.c
+--- libnl-1.1/lib/route/link.c	2008-01-14 21:18:45.000000000 +0530
++++ libnl-1.1.orig/lib/route/link.c	2010-08-02 14:51:10.665332287 +0530
+@@ -1061,10 +1061,10 @@ int rtnl_link_change(struct nl_handle *h
+ 		return nl_errno(ENOMEM);
+ 	
+ 	err = nl_send_auto_complete(handle, msg);
++	nlmsg_free(msg);
+ 	if (err < 0)
+ 		return err;
+ 
+-	nlmsg_free(msg);
+ 	return nl_wait_for_ack(handle);
+ }
+ 
+diff -Naurp libnl-1.1/lib/route/neigh.c libnl-1.1.orig/lib/route/neigh.c
+--- libnl-1.1/lib/route/neigh.c	2008-01-14 21:18:45.000000000 +0530
++++ libnl-1.1.orig/lib/route/neigh.c	2010-08-02 14:51:52.857205523 +0530
+@@ -663,10 +663,10 @@ int rtnl_neigh_add(struct nl_handle *han
+ 		return nl_errno(ENOMEM);
+ 
+ 	err = nl_send_auto_complete(handle, msg);
++	nlmsg_free(msg);
+ 	if (err < 0)
+ 		return err;
+ 
+-	nlmsg_free(msg);
+ 	return nl_wait_for_ack(handle);
+ }
+ 
+@@ -719,10 +719,10 @@ int rtnl_neigh_delete(struct nl_handle *
+ 		return nl_errno(ENOMEM);
+ 
+ 	err = nl_send_auto_complete(handle, msg);
++	nlmsg_free(msg);
+ 	if (err < 0)
+ 		return err;
+ 
+-	nlmsg_free(msg);
+ 	return nl_wait_for_ack(handle);
+ }
+ 
+@@ -778,10 +778,10 @@ int rtnl_neigh_change(struct nl_handle *
+ 		return nl_errno(ENOMEM);
+ 
+ 	err = nl_send_auto_complete(handle, msg);
++	nlmsg_free(msg);
+ 	if (err < 0)
+ 		return err;
+ 
+-	nlmsg_free(msg);
+ 	return nl_wait_for_ack(handle);
+ }
+ 
+diff -Naurp libnl-1.1/lib/route/neightbl.c libnl-1.1.orig/lib/route/neightbl.c
+--- libnl-1.1/lib/route/neightbl.c	2008-01-14 21:18:45.000000000 +0530
++++ libnl-1.1.orig/lib/route/neightbl.c	2010-08-02 14:52:20.443331378 +0530
+@@ -583,10 +583,10 @@ int rtnl_neightbl_change(struct nl_handl
+ 	
+ 	msg = rtnl_neightbl_build_change_request(old, tmpl);
+ 	err = nl_send_auto_complete(handle, msg);
++	nlmsg_free(msg);
+ 	if (err < 0)
+ 		return err;
+ 
+-	nlmsg_free(msg);
+ 	return nl_wait_for_ack(handle);
+ }
+ 
+diff -Naurp libnl-1.1/lib/route/qdisc.c libnl-1.1.orig/lib/route/qdisc.c
+--- libnl-1.1/lib/route/qdisc.c	2008-01-14 21:18:45.000000000 +0530
++++ libnl-1.1.orig/lib/route/qdisc.c	2010-08-02 14:52:58.096332846 +0530
+@@ -232,10 +232,10 @@ int rtnl_qdisc_add(struct nl_handle *han
+ 		return nl_errno(ENOMEM);
+ 
+ 	err = nl_send_auto_complete(handle, msg);
++	nlmsg_free(msg);
+ 	if (err < 0)
+ 		return err;
+ 
+-	nlmsg_free(msg);
+ 	return nl_wait_for_ack(handle);
+ }
+ 
+@@ -287,10 +287,10 @@ int rtnl_qdisc_change(struct nl_handle *
+ 		return nl_errno(ENOMEM);
+ 
+ 	err = nl_send_auto_complete(handle, msg);
++	nlmsg_free(msg);
+ 	if (err < 0)
+ 		return err;
+ 
+-	nlmsg_free(msg);
+ 	return nl_wait_for_ack(handle);
+ }
+ 
+@@ -355,10 +355,10 @@ int rtnl_qdisc_delete(struct nl_handle *
+ 		return nl_errno(ENOMEM);
+ 
+ 	err = nl_send_auto_complete(handle, msg);
++	nlmsg_free(msg);
+ 	if (err < 0)
+ 		return err;
+ 
+-	nlmsg_free(msg);
+ 	return nl_wait_for_ack(handle);
+ }
+ 
+diff -Naurp libnl-1.1/lib/route/route_utils.c libnl-1.1.orig/lib/route/route_utils.c
+--- libnl-1.1/lib/route/route_utils.c	2008-01-14 21:18:45.000000000 +0530
++++ libnl-1.1.orig/lib/route/route_utils.c	2010-08-02 14:45:43.873206501 +0530
+@@ -63,6 +63,11 @@ static void __init init_routing_table_na
+ 	add_routing_table_name(RT_TABLE_LOCAL, "local");
+ };
+ 
++static void __exit release_routing_table_names(void)
++{
++	__trans_list_clear(&table_names);
++}
++
+ int rtnl_route_read_table_names(const char *path)
+ {
+ 	__trans_list_clear(&table_names);
+@@ -104,6 +109,11 @@ static void __init init_proto_names(void
+ 	add_proto_name(RTPROT_STATIC, "static");
+ };
+ 
++static void __exit release_proto_names(void)
++{
++	__trans_list_clear(&proto_names);
++}
++
+ int rtnl_route_read_protocol_names(const char *path)
+ {
+ 	__trans_list_clear(&proto_names);

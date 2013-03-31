@@ -3,7 +3,7 @@ Group: Development/Libraries
 License: LGPLv2
 Name: libnl
 Version: 1.1
-Release: 12%{?dist}
+Release: 12%{?dist}.1
 URL: http://www.infradead.org/~tgr/libnl/
 Source: http://www.infradead.org/~tgr/libnl/files/libnl-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
@@ -17,6 +17,7 @@ Patch6: libnl-1.1-doc-inlinesrc.patch
 Patch7: libnl-1.1-no-extern-inline.patch
 Patch8: libnl-1.1-align.patch
 Patch9: rh617291-error-thread-local.patch
+Patch10: rh620345-memleak-fixes.patch
 
 %description
 This package contains a convenience library to simplify
@@ -44,6 +45,7 @@ This package contains various headers for using libnl
 %patch7 -p1 -b .no-extern-inline
 %patch8 -p1 -b .align
 %patch9 -p1 -b .error-thread-local
+%patch10 -p1 -b .memleak-fixes
 
 # a quick hack to make doxygen stripping builddir from html outputs.
 sed -i.org -e "s,^STRIP_FROM_PATH.*,STRIP_FROM_PATH = `pwd`," doc/Doxyfile.in
@@ -84,6 +86,9 @@ done
 %{_libdir}/pkgconfig/%{name}-1.pc
 
 %changelog
+* Tue Feb  8 2011 Dan Williams <dcbw@redhat.com> - 1.1-12.el6_1.1
+- Fix various memory leaks in error paths (rh #620345) (rh #676327)
+
 * Wed Aug  4 2010 Dan Williams <dcbw@redhat.com> - 1.1-12
 - Fix crashes due to multithreaded error handling (rh #617291)
 
